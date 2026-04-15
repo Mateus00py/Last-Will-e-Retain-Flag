@@ -20,3 +20,14 @@ Quando usar:
 Monitoramento de Saúde (Health Check): Para alertar sistemas de manutenção que um dispositivo parou de funcionar inesperadamente.
 
 Prevenção de falsos positivos: Se um sensor de alarme cai, o LWT avisa o sistema central para que ele não ache que está "tudo bem" apenas porque não está recebendo alertas.
+
+
+##  Impactos no Sistema IoT Real
+
+| Característica               | Impacto do Retain Flag                                                                                                                                                                                                      | Impacto do Last Will (LWT)                                                                                                                              |
+| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tráfego de Rede              | Reduz o uso da rede, pois dispositivos a bateria podem acordar, enviar o dado com a flag e voltar a dormir, e o broker se encarrega de atualizar novos clientes                                              | Aumenta a confiabilidade do sistema sem precisar que os clientes fiquem fazendo "ping" constante para saber se o sensor está vivo             |
+| Uso de Memória               | Ocupa memória contínua no Broker. Se usado em todos os tópicos desnecessariamente, causará acúmulo de dados, pois mensagens retidas nunca são apagadas automaticamente (a menos que se envie um payload vazio) | Ocupa pouca memória, pois a mensagem só é armazenada no momento da conexão e descartada quando publicada                                     |
+| Confiabilidade da Informação | Pode gerar leituras obsoletas. Se um sensor quebrar, a última mensagem retida continuará sendo enviada a novos clientes, que acharão que o dado é atual                                                        | Resolve o problema das leituras obsoletas. O LWT avisa exatamente que o sensor caiu, permitindo que a aplicação ignore o dado retido antigo |
+
+OBS: O ideal seria sempre trabalhar com os dois ao mesmo tempo, um ajudando o outro para que chegue em um resultado harmônico, quando um cair o outro cobrir e vice-versa.
