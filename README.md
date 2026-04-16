@@ -1,7 +1,7 @@
 # Last-Will-e-Retain-Flag
 ## Estudo sobre Last Will e Retain Flasg da matéria de Sistemas Embarcados e IOT 07B
-
-
+Mateus Zurano Escorsi - 1967072  
+Pedro Henrique Juliani - 1968115
 ### Retain Flag (Sinalizador de Retenção)
 A Retain Flag é uma configuração enviada junto com uma mensagem MQTT que diz ao Broker (servidor): "Guarde esta última mensagem na memória para este tópico". Sempre que um novo cliente se inscrever nesse tópico, ele receberá essa mensagem salva imediatamente, sem precisar esperar o dispositivo publicar uma nova leitura.
 
